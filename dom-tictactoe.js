@@ -27,15 +27,14 @@ const handleClick = (element) => {
 }
 
 const addMarker = (id) => {
-  console.log(`We'll place a mark on square: ${id}`)
-  // @TODO, Mix & Match. 
+  console.log(`We'll place a mark on square: ${id}`);
+  // @TODO, Mix & Match.
   // You will need the following pieces:
-  
-  // = currentMarker
-  // .getElementById(id)
-  // document
-  // .innerHTML 
-  
+
+  document.getElementById(id).innerHTML = currentMarker
+
+
+
   // Arrange the above pieces into a single line of code
   // to add an X or O to the board to the DOM so it can be scene on the screen.
 }
@@ -48,6 +47,8 @@ const updateBoard = (id) => {
 
   console.log(`you clicked the sq at ${row} and ${column}`)
   console.log(board)
+  board[row][column] = currentMarker;
+
 
   // @TODO, Your code here: use the above information to change the board variable(array of arrays)
   // HINT: in your browser open up the dev tools -> console
@@ -58,6 +59,7 @@ const checkForWin = () => {
   if(horizontalWin() || verticalWin() || diagonalWin()) {
     // **BONUS** you could make the dismissal of this alert window reset the board...
     window.alert(`Player ${currentMarker} won!`)
+    resetBoard();
   } else {
     // if no win, change the marker from X to O, or O to X for the next player.
     changeMarker()
@@ -65,16 +67,44 @@ const checkForWin = () => {
 }
 
 const horizontalWin = () => {
-  // @TODO, Your code here: to check for horizontal wins
-}
+  if (
+    (board[0][0] == "X" && board[0][1] == "X" && board[0][2] == "X") ||
+    (board[0][0] == "O" && board[0][1] == "O" && board[0][2] == "O") ||
+    (board[1][0] == "X" && board[1][1] == "X" && board[1][2] == "X") ||
+    (board[1][0] == "O" && board[1][1] == "O" && board[1][2] == "O") ||
+    (board[2][0] == "X" && board[2][1] == "X" && board[2][2] == "X") ||
+    (board[2][0] == "O" && board[2][1] == "O" && board[2][2] == "O")
+  ) {
+    return true;
+  }
+  // Your code here to check for horizontal wins
+};
 
 const verticalWin = () => {
-  // @TODO, Your code here: to check for vertical wins
-}
+  if (
+    (board[0][0] == "X" && board[1][0] == "X" && board[2][0] == "X") ||
+    (board[0][0] == "O" && board[1][0] == "O" && board[2][0] == "O") ||
+    (board[0][1] == "X" && board[1][1] == "X" && board[2][1] == "X") ||
+    (board[0][1] == "O" && board[1][1] == "O" && board[2][1] == "O") ||
+    (board[0][2] == "X" && board[1][2] == "X" && board[2][2] == "X") ||
+    (board[0][2] == "O" && board[1][2] == "O" && board[2][2] == "O")
+  ) {
+    return true;
+  }
+  // Your code here to check for vertical wins
+};
 
 const diagonalWin = () => {
-  // @TODO, Your code here: to check for diagonal wins
-}
+  if (
+    (board[0][0] == "X" && board[1][1] == "X" && board[2][2] == "X") ||
+    (board[0][0] == "O" && board[1][1] == "O" && board[2][2] == "O") ||
+    (board[0][2] == "X" && board[1][1] == "X" && board[2][0] == "X") ||
+    (board[0][2] == "O" && board[1][1] == "O" && board[2][0] == "O")
+  ) {
+    return true;
+  }
+  // Your code here to check for diagonal wins
+};
 
 const changeMarker = () => {
   // ternary operator: if it's an X make it an O, if O make it an X
@@ -95,6 +125,12 @@ const resetBoard = () => {
   }
   
   // @TODO, Your code here: make sure to reset the array of arrays to empty for a new game
+  currentMarker = 'X'
+  board = [
+    ["", "", ""],
+    ["", "", ""],
+    ["", "", ""],
+  ];
 }
 
 // **BONUSES**
